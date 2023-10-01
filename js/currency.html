@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Currency Change</title>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var myHeaders = new Headers();
+        myHeaders.append("apikey", "it2sSkvOwY8DBTQzGPYwZhDFwIP8LUz7");
+
+        var requestOptions = {
+          method: 'GET',
+          redirect: 'follow',
+          headers: myHeaders
+        };
+
+        document.querySelector("form").onsubmit = function() {
+          const currencyFrom = document.querySelector("#currencyFrom").value;
+          const currencyTo = document.querySelector("#currencyTo").value;
+          const amount = document.querySelector("#amount").value;
+          
+          var myHeaders = new Headers();
+          myHeaders.append("apikey", "it2sSkvOwY8DBTQzGPYwZhDFwIP8LUz7");
+
+          var requestOptions = {
+            method: 'GET',
+            redirect: 'follow',
+            headers: myHeaders
+          };
+
+          fetch(`https://api.apilayer.com/fixer/convert?to=${currencyTo}&from=${currencyFrom}&amount=${amount}`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+              document.querySelector('#result').innerHTML = `${result.result} ${currencyTo}`;
+            })
+            .catch(error => console.log('error', error));
+          
+          return false;
+        }
+        
+        
+      })
+    </script>
+  </head>
+
+  <body>
+    <form action="">
+      <label for="currencyFrom">From</label>
+      <input type="text" id="currencyFrom" placeholder="EUR"> <br/>
+      <label for="currencyTo">To</label>
+      <input type="text" id="currencyTo" placeholder="GBP"> <br/>
+      <label for="amount">Amount</label>
+      <input type="text" id="amount" placeholder="1"> <br/>
+      <input type="submit" value="Convert">
+    </form>
+    <div id="result"></div>
+  </body>
+</html>

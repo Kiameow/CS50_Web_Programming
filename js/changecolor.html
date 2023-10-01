@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Change Color
+    </title>
+    <script>
+      document.addEventListener("DOMContentLoaded", ()=> {
+        document.querySelectorAll('button').forEach(button => {
+          button.onclick = () => {
+            document.querySelector('#color').style.color = button.dataset.color;
+          }
+        })
+
+        document.querySelector('select').onchange = function() {
+          document.querySelector('#color2').style.color = this.value;
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <h1 id="color">Color</h1>
+
+    <button data-color="red">Red</button>
+    <button data-color="green">Green</button>
+    <button data-color="blue">Blue</button>
+
+    <h1 id="color2">Color2</h1>
+
+    <select name="color" id="color-select">
+      <option value="black">Black</option>
+      <option value="green">Green</option>
+      <option value="red">Red</option>
+      <option value="pink">pink</option>
+      <option value="yellow">yellow</option>
+    </select>
+  </body>
+</html>

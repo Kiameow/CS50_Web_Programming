@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Single Page</title>
+    <script>
+      // store the state
+      window.onpopstate = event => {
+        console.log(event.state.section);
+        showSection(event.state.section);
+      }
+      function showSection(section) {
+        fetch(`./section/${section}`)
+          .then(response => response.text())
+          .then(text => {
+            console.log(text);
+            document.querySelector('#content').innerHTML = text;
+          })
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('button').forEach(button => {
+          button.onclick = function() {
+            const section = this.dataset.section;
+            showSection(section);
+
+            // store the state
+            history.pushState({section: section}, "", `section${section}`);
+            // you cannot directly visit the url in the bar cause it's fake, and that's only for you to easily forward and backword
+          }
+        })
+      })
+    </script>
+  </head>
+  <body>
+    <h1>Hey, Here is the summary of Hamlet</h1>
+    <button data-section="1">Section 1</button>
+    <button data-section="2">Section 2</button>
+    <button data-section="3">Section 3</button>
+    <button data-section="4">Section 4</button>
+    <div id="content"></div>
+  </body>
+</html>
+
