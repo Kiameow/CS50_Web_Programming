@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Addition</title>
+  </head>
+  <style>
+    #section {
+      text-align: center;
+    }
+    #problem {
+      font-size: 48px;
+      font-family: sans-serif;
+    }
+
+    .Incorrect {
+      color: red;
+    }
+  </style>
+  <body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+
+      
+
+      function App() {
+        const [state, setState] = React.useState({
+          num1: Math.ceil(Math.random()*10),
+          num2: Math.ceil(Math.random()*10),
+          response: "",
+          score: 0,
+          correct: ""
+        })
+
+        function inputKeyPress(event) {
+          if (event.key === "Enter") {
+            const answer = parseInt(state.response)
+            if(state.num1 + state.num2 === answer) {
+              setState({
+                ...state,
+                num1: Math.ceil(Math.random()*10),
+                num2: Math.ceil(Math.random()*10),
+                response: "",
+                score: state.score+1,
+                correct: "",
+              })
+            } else {
+              setState({
+                ...state,
+                response: "",
+                score: state.score-1,
+                correct: "Incorrect",
+              })
+             
+            }
+
+          }
+        }
+        function updateResponse(event) {
+          setState({
+            ...state,
+            response: event.target.value
+          })
+        }
+
+        return (
+          <div id="section">
+            <div className={state.correct} id="problem">{state.num1} + {state.num2}</div>
+            <input onKeyPress={inputKeyPress} onChange={updateResponse} type="text" value={state.response} />
+            <div id="score">Score: {state.score}</div>
+          </div>
+        )
+      }
+
+      ReactDOM.render(<App />, document.querySelector('#app'));
+    </script>
+  </body>
+</html>
