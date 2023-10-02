@@ -27,6 +27,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='flight',
             name='origin',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='depatures', to='flights.airport'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='departures', to='flights.airport'),
         ),
     ]
